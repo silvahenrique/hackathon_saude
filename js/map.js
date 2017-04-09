@@ -4,10 +4,10 @@ var latlng = null;
 var API_KEY = "AIzaSyAefzKRkesd5paJ5myJCrhIp77SU0vDEac";
 
 var travelModes = [
-  { descrciption: "", mode: "DRIVING" },
-  { descrciption: "", mode: "BICYCLING" },
-  { descrciption: "", mode: "TRANSIT" },
-  { descrciption: "", mode: "WALKING" }
+  { descrciption: "Carro", mode: "DRIVING" },
+  { descrciption: "Bicicleta", mode: "BICYCLING" },
+  { descrciption: "Transport púbico", mode: "TRANSIT" },
+  { descrciption: "A pé", mode: "WALKING" }
 ];
 
 function exibirLocalizacaoUsuario(mapa, zoom) {
@@ -84,9 +84,10 @@ var mapa = new google.maps.Map(document.getElementById("mapa"), {
 exibirLocalizacaoUsuario(mapa, 14)
 localizarEndereco("origem", "btnIr", mapa, 14);
 
+var directionsDisplay = new google.maps.DirectionsRenderer();
+var directionsService = new google.maps.DirectionsService();
+
 document.getElementById("btnRota").addEventListener("click", function () {
-  var directionsDisplay = new google.maps.DirectionsRenderer();
-  var directionsService = new google.maps.DirectionsService();
 
   var start = document.getElementById('origem').value;
   var end = document.getElementById('destino').value;
@@ -109,3 +110,9 @@ document.getElementById("btnRota").addEventListener("click", function () {
 });
 
 })();
+
+
+//
+// var vm  = new Vue({
+//   el: "#app"
+// });
