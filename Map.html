@@ -2,7 +2,9 @@
 <html>
 <head>
     <title>Meus Locais</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="css/map.css" rel="stylesheet" />
@@ -16,11 +18,14 @@
       <input id="destino" type="text" placeholder="Destino" />
       <input type="button" value="Ir" id="btnIr" />
 
+      <select id="modo">
+      </select>
+
       <input type="button" value="Rota" id="btnRota" />
     </div>
   </div>
 
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0_BXBFtq7vwQoJEgGpgAgZfhQjq1s39g"></script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0_BXBFtq7vwQoJEgGpgAgZfhQjq1s39g"></script>
   <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
   <script src="bower_components/vue/dist/vue.js" type="text/javascript"></script>
   <script src="js/map.js"></script>

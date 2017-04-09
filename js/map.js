@@ -3,6 +3,27 @@ var marker = null;
 var latlng = null;
 var API_KEY = "AIzaSyAefzKRkesd5paJ5myJCrhIp77SU0vDEac";
 
+var travelModes = [{
+    descrciption: "Carro",
+    mode: "DRIVING"
+  }, {
+    descrciption: "Bicicleta",
+    mode: "BICYCLING"
+  }, {
+    descrciption: "Transport Púbico",
+    mode: "TRANSIT"
+  }, {
+    descrciption: "A Pé",
+    mode: "WALKING"
+  }
+];
+
+var mode = document.getElementById("modo");
+
+travelModes.forEach(function(element) {
+  mode.innerHTML += "<option value="+ element.mode +">" + element.descrciption + "</option>"
+});
+
 function exibirLocalizacaoUsuario(mapa, zoom) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (posicao) {
@@ -57,40 +78,39 @@ function localizarEndereco(idEntradaTexto, idObjetoClique, mapa, zoom) {
   });
 }
 
-var mapa = new google.maps.Map(document.getElementById("mapa"), {
-  center: { lat: -23.533970, lng: -46.628870 },
-  zoom: 8,
-  panControl: true,
-  zoomControl: true,
-  zoomControlOptions: {
-    style: google.maps.ZoomControlStyle.LARGE,
-    position: google.maps.ControlPosition.RIGHT_CENTER
-  },
-  mapTypeControl: false,
-  scaleControl: false,
-  streetViewControl: false,
-  overviewMapControl: true,
-  rotateControl: true,
-  mapTypeId: google.maps.MapTypeId.ROADMAP
-});
+function appMap() {
+  return new google.maps.Map(document.getElementById("mapa"), {
+    center: { lat: -23.533970, lng: -46.628870 },
+    zoom: 8,
+    panControl: true,
+    zoomControl: true,
+    zoomControlOptions: {
+      style: google.maps.ZoomControlStyle.LARGE,
+      position: google.maps.ControlPosition.RIGHT_CENTER
+    },
+    mapTypeControl: false,
+    scaleControl: false,
+    streetViewControl: false,
+    overviewMapControl: true,
+    rotateControl: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+}
 
-exibirLocalizacaoUsuario(mapa, 14)
-localizarEndereco("origem", "btnIr", mapa, 14);
 
-var directionsDisplay = new google.maps.DirectionsRenderer();
-var directionsService = new google.maps.DirectionsService();
-
-document.getElementById("btnRota").addEventListener("click", function () {
+function generateRoute() {
+  mapa = appMap();
 
   var start = document.getElementById('origem').value;
   var end = document.getElementById('destino').value;
+  var mode = document.getElementById('modo').value;
 
   directionsDisplay.setMap(mapa);
 
   var request = {
     origin: start,
     destination: end,
-    travelMode: 'DRIVING'
+    travelMode: mode
   };
 
   directionsService.route(request, function(result, status) {
@@ -100,6 +120,17 @@ document.getElementById("btnRota").addEventListener("click", function () {
       console.log(JSON.stringify(result));
     }
   });
-});
+}
+
+var mapa = appMap();
+
+exibirLocalizacaoUsuario(mapa, 14)
+localizarEndereco("origem", "btnIr", mapa, 14);
+
+var directionsDisplay = new google.maps.DirectionsRenderer();
+var directionsService = new google.maps.DirectionsService();
+
+mode.addEventListener("change", generateRoute);
+document.getElementById("btnRota").addEventListener("click", generateRoute);
 
 })();
