@@ -38,7 +38,7 @@
         })
           .then(response => response.json())
           .then(response => console.log(response));
-
+        alert(JSON.stringify(data));
       },
 
       error : function(e) {
@@ -51,6 +51,4 @@
     });
 
   });
-
-
 })();

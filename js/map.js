@@ -136,6 +136,8 @@ function generateRoute() {
       //console.log(result.enderecos[0].latitude);
       //console.log(result.enderecos[0].longitude);
       // console.log(result.routes[0].legs);
+      // console.log(JSON.stringify(result));
+
     }
   });
 }
@@ -159,6 +161,8 @@ var marker = new google.maps.Marker({
   title: 'UBS'
 });
 
+var geocoder = new google.maps.Geocoder();
+
 // Just repeting my self
 $("#origem").autocomplete({
   source: function (request, response) {
@@ -179,6 +183,8 @@ select: function (event, ui) {
   marker.setPosition(location);
   mapa.setCenter(location);
   mapa.setZoom(16);
+  map.setCenter(location);
+  map.setZoom(16);
 }});
 
 $("#destino").autocomplete({
@@ -251,5 +257,10 @@ ubs.forEach((elemento) => {
     infowindow.open(mapa, marker);
   });
 }); // End of forEach
+  var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+  marker.setPosition(location);
+  map.setCenter(location);
+  map.setZoom(16);
+}});
 
 })();
