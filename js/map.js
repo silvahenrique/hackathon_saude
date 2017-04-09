@@ -3,13 +3,6 @@ var marker = null;
 var latlng = null;
 var API_KEY = "AIzaSyAefzKRkesd5paJ5myJCrhIp77SU0vDEac";
 
-var travelModes = [
-  { descrciption: "Carro", mode: "DRIVING" },
-  { descrciption: "Bicicleta", mode: "BICYCLING" },
-  { descrciption: "Transport púbico", mode: "TRANSIT" },
-  { descrciption: "A pé", mode: "WALKING" }
-];
-
 function exibirLocalizacaoUsuario(mapa, zoom) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (posicao) {
@@ -110,9 +103,3 @@ document.getElementById("btnRota").addEventListener("click", function () {
 });
 
 })();
-
-
-//
-// var vm  = new Vue({
-//   el: "#app"
-// });
