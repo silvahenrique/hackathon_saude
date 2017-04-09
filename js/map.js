@@ -132,7 +132,12 @@ function generateRoute() {
     if (status == 'OK') {
       directionsDisplay.setDirections(result);
 
-      console.log(JSON.stringify(result));
+      //console.log(result.enderecos[0].endereco);
+      //console.log(result.enderecos[0].latitude);
+      //console.log(result.enderecos[0].longitude);
+      // console.log(result.routes[0].legs);
+      // console.log(JSON.stringify(result));
+
     }
   });
 }
@@ -148,8 +153,13 @@ var directionsService = new google.maps.DirectionsService();
 mode.addEventListener("change", generateRoute);
 document.getElementById("btnRota").addEventListener("click", generateRoute);
 
+var geocoder = new google.maps.Geocoder();
 
-
+var marker = new google.maps.Marker({
+  // position: { lat: elemento.latitude, lng: elemento.longitude },
+  map: mapa,
+  title: 'UBS'
+});
 
 var geocoder = new google.maps.Geocoder();
 
@@ -171,6 +181,8 @@ $("#origem").autocomplete({
 select: function (event, ui) {
   var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
   marker.setPosition(location);
+  mapa.setCenter(location);
+  mapa.setZoom(16);
   map.setCenter(location);
   map.setZoom(16);
 }});
@@ -190,21 +202,65 @@ $("#destino").autocomplete({
   })
 },
 select: function (event, ui) {
+  console.log(ui)
+  var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+  marker.setPosition(location);
+  mapa.setCenter(location);
+  mapa.setZoom(16);
+}});
+
+/// BAck here later
+var ubs = [
+  {
+    endereco: '1',
+    telefone: '',
+    horarioFuncionamento: '',
+    latitude: -25.363,
+    longitude: 131.044
+  },
+  {
+    endereco: '2',
+    telefone: '',
+    horarioFuncionamento: '',
+    latitude: 25.363,
+    longitude: 11.044
+  },
+  {
+    endereco: '3',
+    telefone: '',
+    horarioFuncionamento: '',
+    latitude: 15.363,
+    longitude: 31.044
+  }
+];
+
+var markers = [];
+
+ubs.forEach((elemento) => {
+  var infowindow = new google.maps.InfoWindow({
+    content: `
+      <p><strong>ENDEREÇO: </strong>${elemento.endereco}</p>
+      <p><strong>TELEFONE: </strong>${elemento.telefone}</p>
+      <p><strong>HORÁRIO DE FUNCIONAMENTO: </strong>${elemento.horarioFuncionamento}</p>
+    `
+  });
+
+  var marker = new google.maps.Marker({
+    position: { lat: elemento.latitude, lng: elemento.longitude },
+    map: mapa,
+    title: 'UBS'
+  });
+
+  markers.push(marker);
+
+  marker.addListener('click', function() {
+    infowindow.open(mapa, marker);
+  });
+}); // End of forEach
   var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
   marker.setPosition(location);
   map.setCenter(location);
   map.setZoom(16);
 }});
-
-
-
-
-
-
-
-
-
-
-
 
 })();

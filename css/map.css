@@ -17,3 +17,19 @@ html, body {
     margin: 0;
     padding: 0;
 }
+/*.modal.pergunta {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: #fff;
+    display: block;
+    z-index: 111;
+    transition: .2s
+}
+
+.modal.pergunta.sumiu {
+  opacity: 0;
+  pointer-events: none;
+}*/

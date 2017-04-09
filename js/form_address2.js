@@ -23,6 +23,21 @@
       data : JSON.stringify(obj),
 
       success : function(data) {
+        console.log(data);
+
+        var retornoMaps = [];
+
+        var params = {
+          origin: 'alameda barao de limeira',
+          destination: 'rua 25 de marco',
+          key: 'AIzaSyC0_BXBFtq7vwQoJEgGpgAgZfhQjq1s39g'
+        };
+
+        fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${params.origin}&destination=${params.destination}&key=${params.key}`, {
+          method: 'post',
+        })
+          .then(response => response.json())
+          .then(response => console.log(response));
         alert(JSON.stringify(data));
       },
 
@@ -36,5 +51,4 @@
     });
 
   });
-
 })();
