@@ -93,9 +93,24 @@ function appMap() {
     streetViewControl: false,
     overviewMapControl: true,
     rotateControl: true,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [{
+      featureType: 'poi',
+      elementType: 'label.text',
+      stylers: [{
+        visibility: 'off'
+      }]
+    }, {
+      featureType: 'transit',
+      elementType: 'geometry',
+      stylers: [{
+        visibility: 'on'
+      }]
+    }]
+
+
   });
-}
+  }
 
 
 function generateRoute() {
@@ -132,5 +147,64 @@ var directionsService = new google.maps.DirectionsService();
 
 mode.addEventListener("change", generateRoute);
 document.getElementById("btnRota").addEventListener("click", generateRoute);
+
+
+
+
+var geocoder = new google.maps.Geocoder();
+
+// Just repeting my self
+$("#origem").autocomplete({
+  source: function (request, response) {
+    geocoder.geocode({ 'address': request.term + ', Brasil', 'region': 'BR' }, function (results, status) {
+
+    response($.map(results, function (item) {
+      return {
+        label: item.formatted_address,
+        value: item.formatted_address,
+        latitude: item.geometry.location.lat(),
+        longitude: item.geometry.location.lng()
+      }
+    }));
+  })
+},
+select: function (event, ui) {
+  var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+  marker.setPosition(location);
+  map.setCenter(location);
+  map.setZoom(16);
+}});
+
+$("#destino").autocomplete({
+  source: function (request, response) {
+    geocoder.geocode({ 'address': request.term + ', Brasil', 'region': 'BR' }, function (results, status) {
+
+    response($.map(results, function (item) {
+      return {
+        label: item.formatted_address,
+        value: item.formatted_address,
+        latitude: item.geometry.location.lat(),
+        longitude: item.geometry.location.lng()
+      }
+    }));
+  })
+},
+select: function (event, ui) {
+  var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+  marker.setPosition(location);
+  map.setCenter(location);
+  map.setZoom(16);
+}});
+
+
+
+
+
+
+
+
+
+
+
 
 })();

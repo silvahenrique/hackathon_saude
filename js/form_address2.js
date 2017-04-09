@@ -10,18 +10,20 @@
       textoAjuda: textoAjuda
     };
 
-    alert(JSON.stringify(obj));
+    obj = {
+      speakText: textoAjuda
+    };
 
     $.ajax({
       type : "POST",
       contentType : "application/json",
-      url : "URL",
+      url : "http://c44282a4.ngrok.io/projectnavi/message",
       dataType : "json",
       timeout : 100000,
       data : JSON.stringify(obj),
 
       success : function(data) {
-        console.log(JSON.stringify(data));
+        alert(JSON.stringify(data));
       },
 
       error : function(e) {
